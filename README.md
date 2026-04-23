@@ -1,58 +1,177 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📘 Kursiki – Platforma kursów online
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## 🔷 Opis projektu
 
-## About Laravel
+Kursiki to platforma e-learningowa stworzona w Laravelu, umożliwiająca przeglądanie kursów, zapisywanie się na nie oraz zarządzanie dostępem użytkownika.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Projekt rozwijany jest w oparciu o podejście praktyczne – struktura i logika odzwierciedlają realne systemy produkcyjne.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔷 Technologie
 
-## Learning Laravel
+- Backend: Laravel 13
+- Frontend: Blade + Tailwind CSS
+- Baza danych: MySQL
+- Środowisko: XAMPP (localhost)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🔷 Funkcjonalności
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+### ✔ Publiczny frontend
+- Strona główna
+- Lista kursów
+- Szczegóły kursów
+- Blog
+- FAQ
+- Kontakt
 
-## Agentic Development
+### ✔ System użytkownika
+- Rejestracja
+- Logowanie
+- Wylogowanie
+- Panel użytkownika
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+### ✔ Kursy
+- Wyświetlanie kursów
+- Szczegóły kursu
+- Zapis na kurs
+- Wykrywanie zapisu
 
-```bash
-composer require laravel/boost --dev
+### ✔ Newsletter
+- Formularz zapisu
+- Walidacja danych
+- Zapis do bazy
 
-php artisan boost:install
-```
+---
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## 🔷 Architektura bazy danych
 
-## Contributing
+### Użytkownicy
+- users
+- profile_uzytkownikow
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Role i uprawnienia
+- role
+- uzytkownicy_role
+- uprawnienia
+- role_uprawnienia
 
-## Code of Conduct
+### Kursy
+- kursy
+- kategorie_kursow
+- poziomy_kursow
+- statusy_kursow
+- kursy_tagi
+- tagi_kursow
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Struktura kursu
+- sekcje_kursow
+- lekcje
+- materialy_lekcji
+- pliki_wideo
 
-## Security Vulnerabilities
+### Relacje użytkownik ↔ kurs
+- zapisy_na_kursy
+- postepy_kursow
+- postepy_lekcji
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Zamówienia
+- zamowienia
+- statusy_zamowien
+- statusy_platnosci
 
-## License
+### Inne
+- subskrybenci_newslettera
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 🔷 Kluczowa logika
+
+- Rejestracja tworzy użytkownika, profil i przypisuje rolę
+- Logowanie wykorzystuje Auth::attempt
+- Panel pokazuje dane użytkownika i kursy
+- Zapis na kurs sprawdza istnienie wpisu i dodaje rekord
+- Newsletter zapisuje użytkownika po walidacji
+
+---
+
+## 🔷 Routing
+
+### Public
+- /
+- /kursy
+- /kursy/{slug}
+- /blog
+- /kontakt
+- /faq
+
+### Auth
+- /logowanie
+- /rejestracja
+
+### Panel
+- /panel
+
+### Akcje
+- POST /kursy/{slug}/zapisz-sie
+- POST /newsletter/zapis
+- POST /wyloguj
+
+---
+
+## 🔷 Struktura projektu
+
+### Kontrolery
+- Auth\RegisterController
+- Auth\LoginController
+- CourseController
+- PanelController
+- ZapisNaKursController
+- NewsletterController
+
+### Widoki
+- layouts/app.blade.php
+- auth/*
+- panel/*
+- kursy/*
+
+---
+
+## 🔷 Status projektu
+
+✔ Rejestracja  
+✔ Logowanie  
+✔ Panel użytkownika  
+✔ Zapis na kurs  
+✔ Moje kursy  
+✔ Newsletter  
+
+Projekt jest stabilny i gotowy do dalszego rozwoju.
+
+---
+
+## 🔷 Roadmapa
+
+### Najbliższe
+- Postępy kursów
+- Dostęp do lekcji
+
+### Średni etap
+- Zamówienia
+- Płatności
+- Koszyk
+
+### Zaawansowane
+- Panel administratora
+- Zarządzanie kursami
+- Statystyki
+
+---
+
+## 🔷 Autor
+
+mgr inż. Zoltan Farkas  
+Specjalista ds. programowania aplikacji webowych i desktopowych oraz szkoleń 
+Wykładowca AHE w Łodzi
